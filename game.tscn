@@ -1,0 +1,220 @@
+[gd_scene load_steps=10 format=3 uid="uid://2wuhd8tiihkl"]
+
+[ext_resource type="Script" path="res://Main Scene.gd" id="1_smp3y"]
+[ext_resource type="Texture2D" uid="uid://clldsrdmdxdvl" path="res://icon.svg" id="2_cip3g"]
+[ext_resource type="PackedScene" uid="uid://ct7xo1dh4i702" path="res://map.tscn" id="2_i5vwv"]
+[ext_resource type="Texture2D" uid="uid://dhstesh7n1blg" path="res://3Q6aFyyU_400x400.jpg" id="3_fntkv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w1ngh"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xocbq"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_q0ruf"]
+resource_name = "spinner"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_iph2r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_an0bt"]
+_data = {
+"RESET": SubResource("Animation_iph2r"),
+"spinner": SubResource("Animation_q0ruf")
+}
+
+[node name="Game" type="Node"]
+
+[node name="Main Scene" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_smp3y")
+map1_path = "res://map.tscn"
+map2_path = "res://map2.tscn"
+
+[node name="Map" parent="Main Scene" instance=ExtResource("2_i5vwv")]
+
+[node name="Players" type="Node2D" parent="Main Scene"]
+z_index = 1
+
+[node name="PC 1" type="Sprite2D" parent="Main Scene/Players"]
+position = Vector2(1115, 583)
+texture = ExtResource("2_cip3g")
+
+[node name="PC 2" type="Sprite2D" parent="Main Scene/Players"]
+position = Vector2(917.125, 583.375)
+scale = Vector2(0.559623, 0.557531)
+texture = ExtResource("3_fntkv")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Status Display" type="PanelContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 773.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w1ngh")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Status Display"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Character Stats" type="VBoxContainer" parent="UI/Status Display/MarginContainer"]
+layout_mode = 2
+
+[node name="Stat Block" type="HBoxContainer" parent="UI/Status Display/MarginContainer/Character Stats"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="UI/Status Display/MarginContainer/Character Stats/Stat Block"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+text = "Godot"
+
+[node name="HP" type="Label" parent="UI/Status Display/MarginContainer/Character Stats/Stat Block"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "100/100HP"
+horizontal_alignment = 2
+
+[node name="MP" type="Label" parent="UI/Status Display/MarginContainer/Character Stats/Stat Block"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "100/100MP"
+horizontal_alignment = 2
+
+[node name="Stat Block2" type="HBoxContainer" parent="UI/Status Display/MarginContainer/Character Stats"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="UI/Status Display/MarginContainer/Character Stats/Stat Block2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+text = "Godette"
+
+[node name="HP" type="Label" parent="UI/Status Display/MarginContainer/Character Stats/Stat Block2"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "75/75HP"
+horizontal_alignment = 2
+
+[node name="MP" type="Label" parent="UI/Status Display/MarginContainer/Character Stats/Stat Block2"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "200/200MP"
+horizontal_alignment = 2
+
+[node name="Loading" type="PanelContainer" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xocbq")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Loading"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="Label" type="Label" parent="UI/Loading/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Loading..."
+horizontal_alignment = 1
+
+[node name="Animated Loading" type="PanelContainer" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -745.0
+offset_top = 74.0
+offset_right = -47.0
+offset_bottom = 193.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Animated Loading"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Animated Loading/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="UI/Animated Loading/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Heading to new area..."
+horizontal_alignment = 1
+
+[node name="Spinner" type="Control" parent="UI/Animated Loading/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Sprite" type="Sprite2D" parent="UI/Animated Loading/MarginContainer/HBoxContainer/Spinner"]
+position = Vector2(50, 35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_cip3g")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/Animated Loading/MarginContainer/HBoxContainer/Spinner/Sprite"]
+libraries = {
+"": SubResource("AnimationLibrary_an0bt")
+}
